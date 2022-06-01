@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v1
+            - name: Login to DockerHub Registry
+              run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+            - name: Build the Preprocess image
+              run: docker build ./pipeline/preprocess_data --tag tomerlev/pipeline_preprocessing
+            - name: Push the Preprocess image
+              run: docker push tomerlev/pipeline_preprocessing
+            - name: Build the Train image
+              run: docker build ./pipeline/train --tag tomerlev/pipeline_train
+            - name: Push the Train image
+              run: docker push tomerlev/pipeline_train
+            - name: Build the Test image
+              run: docker build ./pipeline/test --tag tomerlev/pipeline_test
+            - name: Push the Test image
+              run: docker push tomerlev/pipeline_test
+            - name: Build the Deploy image
+              run: docker build ./pipeline/deploy_model --tag tomerlev/pipeline_deploy_model
+            - name: Push the Deploy image
+              run: docker push tomerlev/pipeline_deploy_model
