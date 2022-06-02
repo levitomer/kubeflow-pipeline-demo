@@ -4,7 +4,6 @@ import numpy as np
 
 def _preprocess_data():
      try:
-
           X, y = datasets.fetch_california_housing(return_X_y=True)
           X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
           np.save('x_train.npy', X_train)
@@ -16,3 +15,4 @@ def _preprocess_data():
 if __name__ == '__main__':
      print('Preprocessing data...')
      _preprocess_data()
+     print('Done')
