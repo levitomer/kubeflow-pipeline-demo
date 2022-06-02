@@ -6,7 +6,7 @@ def preprocess_op():
     # It would be much cleaner to have our component accept the file paths as command-line arguments.
     return dsl.ContainerOp(
         name='Preprocess Data',
-        image='levitomer/pipeline_preprocessing:latest',
+        image='tomerlev/pipeline_preprocessing:latest',
         arguments=[],
         file_outputs={
             'x_train': '/app/x_train.npy',
@@ -20,7 +20,7 @@ def train_op(x_train, y_train):
 
     return dsl.ContainerOp(
         name='Train Model',
-        image='levitomer/pipeline_train:latest',
+        image='tomerlev/pipeline_train:latest',
         arguments=[
             '--x_train', x_train,
             '--y_train', y_train
@@ -34,7 +34,7 @@ def test_op(x_test, y_test, model):
 
     return dsl.ContainerOp(
         name='Test Model',
-        image='levitomer/pipeline_test:latest',
+        image='tomerlev/pipeline_test:latest',
         arguments=[
             '--x_test', x_test,
             '--y_test', y_test,
@@ -49,7 +49,7 @@ def deploy_model_op(model):
 
     return dsl.ContainerOp(
         name='Deploy Model',
-        image='levitomer/pipeline_deploy_model:latest',
+        image='tomerlev/pipeline_deploy_model:latest',
         arguments=[
             '--model', model
         ]
