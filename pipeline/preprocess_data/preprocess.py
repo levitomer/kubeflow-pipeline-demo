@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 
 def _preprocess_data():
-     X, y = datasets.load(return_X_y=True)
+     X, y = datasets.load_boston(return_X_y=True)
      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
      np.save('x_train.npy', X_train)
      np.save('x_test.npy', X_test)
