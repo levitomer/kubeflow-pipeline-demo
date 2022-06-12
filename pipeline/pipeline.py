@@ -78,4 +78,5 @@ def pipeline():
     ).after(_test_op)
 
 client = kfp.Client()
-client.create_run_from_pipeline_func(pipeline, arguments={})
+client.upload_pipeline('./', "pipeline")
+# client.create_run_from_pipeline_func(pipeline, arguments={})
