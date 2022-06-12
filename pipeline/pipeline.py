@@ -79,7 +79,7 @@ def pipeline():
     ).after(_test_op)
 
 
-compiler.Compiler.compile(pipeline, 'pipeline/pipeline.yaml')
+compiler.Compiler().compile(pipeline, 'pipeline/pipeline.yaml')
 
 client = kfp.Client()
 client.upload_pipeline('./pipeline.yaml', "pipeline")
