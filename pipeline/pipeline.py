@@ -1,5 +1,6 @@
 import kfp
 from kfp import dsl
+from kfp import compiler
 
 def preprocess_op():
 
@@ -77,6 +78,9 @@ def pipeline():
         dsl.InputArgumentPath(_train_op.outputs['model'])
     ).after(_test_op)
 
+
+compiler.Compiler.compile(pipeline, 'pipeline/pipeline.yaml')
+
 client = kfp.Client()
-client.upload_pipeline('./pipeline.py', "pipeline")
+client.upload_pipeline('./pipeline.yaml', "pipeline")
 # client.create_run_from_pipeline_func(pipeline, arguments={})
