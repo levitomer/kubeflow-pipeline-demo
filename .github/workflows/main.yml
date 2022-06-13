@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build Pipeline Components Images
 
 on:
     push:
@@ -30,3 +30,7 @@ jobs:
               run: docker build ./pipeline/deploy_model --tag tomerlev/pipeline_deploy_model
             - name: Push the Deploy image
               run: docker push tomerlev/pipeline_deploy_model
+            - name: Install packages
+            - run: pip3 install -r ./requirements.txt
+            - name: Upload pipeline to Kubeflow
+            - run: python3 ./pipeline/pipeline.py

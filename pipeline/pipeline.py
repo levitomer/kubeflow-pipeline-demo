@@ -58,7 +58,7 @@ def deploy_model_op(model):
 
 @dsl.pipeline(
    name='Pipeline',
-   description='An example pipeline that trains and logs a regression model.'
+   description='An example pipeline that trains and logs a model.'
 )
 def pipeline():
     _preprocess_op = preprocess_op()
@@ -79,8 +79,7 @@ def pipeline():
     ).after(_test_op)
 
 
-compiler.Compiler().compile(pipeline, 'pipeline/pipeline.yaml')
+compiler.Compiler().compile(pipeline, './pipeline.yaml')
 
 client = kfp.Client()
 client.upload_pipeline('./pipeline.yaml', "pipeline")
-# client.create_run_from_pipeline_func(pipeline, arguments={})
