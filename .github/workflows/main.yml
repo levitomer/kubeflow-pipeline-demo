@@ -30,3 +30,13 @@ jobs:
               run: docker build ./pipeline/deploy_model --tag tomerlev/pipeline_deploy_model
             - name: Push the Deploy image
               run: docker push tomerlev/pipeline_deploy_model
+            - name: Install packages
+              run: pip3 install -r ./requirements.txt
+            - name: Connect to Kubeflow
+              run: kfp --endpoint https://127.0.0.1:52279
+            - name: KubeFlow Diagnose
+              run: kfp diagnose_me
+            - name: Upload pipeline to KubeFlow
+              run: kfp pipeline upload
+            # - name: Upload pipeline to Kubeflow
+            #   run: python3 ./pipeline/pipeline.py
